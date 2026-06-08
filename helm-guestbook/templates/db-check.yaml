@@ -8,14 +8,14 @@ spec:
   backoffLimit: 2
   template:
     spec:
+      restartPolicy: Never
       containers:
         - name: check
           image: busybox
           command: ["sh", "-c", "echo 'Running db check to $DB_HOST...'; sleep 10; echo 'Connected!'"]
-      restartPolicy: Never
-      env:
-        - name: DB_HOST
-          valueFrom:
-            configMapKeyRef:
-              name: db-config
-              key: db_host
+          env:
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config
+                  key: db_host
